@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/New Piskel-6.png.png" type="Texture" id=2]
 [ext_resource path="res://Level_1_Boss.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Archer.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Components/MovementManager.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 111, 46 )
@@ -12,7 +13,7 @@ extents = Vector2( 111, 46 )
 scale = Vector2( 1.01338, 1.0234 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 785.492, 94.7821 )
+position = Vector2( 620.695, 54.7196 )
 collision_layer = 2
 accuracy = 0.187
 
@@ -37,5 +38,10 @@ rotation = 4.71239
 
 [node name="Archer" parent="." instance=ExtResource( 4 )]
 position = Vector2( 226, 276 )
+
+[node name="MovementManager2" parent="Archer" instance=ExtResource( 5 )]
+
+[node name="Position2D" type="Position2D" parent="Archer/MovementManager2"]
+position = Vector2( 304.897, -200.761 )
 
 [editable path="Player"]

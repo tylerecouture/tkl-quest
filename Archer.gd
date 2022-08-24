@@ -21,7 +21,10 @@ func _physics_process(delta):
 	if can_rotate:
 		if player_in_range:
 			if target != null:
-				look_at(target.position)
+#				var vector_to_player = target.position - global_position
+#				var angle = vector_to_player.angle()
+				var angle = global_position.angle_to(target.position)
+				rotation = lerp(rotation, rotation + angle, 0.06)
 
 
 
@@ -39,7 +42,6 @@ func shoot():
 	get_parent().add_child(arrow)
 	$Fire_Rate_Timer.start()
 	$Sprite.play("Idle")
-	print("hi")
 	can_rotate = true
 
 func _on_Fire_Rate_Timer_timeout():
