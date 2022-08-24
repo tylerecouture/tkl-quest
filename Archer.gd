@@ -11,6 +11,7 @@ var can_shoot = true
 var accuracy = 10
 
 var player_in_range = false
+var rotation_speed = PI
 
 func _physics_process(delta):
 	if can_shoot:
@@ -21,15 +22,7 @@ func _physics_process(delta):
 	if can_rotate:
 		if player_in_range:
 			if target != null:
-#				var vector_to_player = target.position - global_position
-#				var angle = vector_to_player.angle()
-				var angle = global_position.angle_to(target.position)
-				rotation = lerp(rotation, rotation + angle, 0.06)
-
-
-
-
-
+				$MovementManager.rotate_toward(target)
 
 
 func shoot():

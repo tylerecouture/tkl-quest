@@ -4,14 +4,17 @@ extends Node2D
 # Place the Position2D "waypoints" where ever you want, and the enemy will move to them
 
 export var speed := 100
+export var rotation_speed := PI
 export var looping := false  # If true, will go to the start after reaching the end
 
 var waypoints := []
 var current_waypoint_index := 0
 var waypoint_direction = 1  #  1 = forward, -1 = backward
-var parent: KinematicBody2D
+var parent : KinematicBody2D
 var accuracy := 5  # how close to the waypoint before its considered reached
 var has_waypoints = true
+var target : Node2D
+var rotate_this_frame = false
 
 
 func _ready():
@@ -45,6 +48,16 @@ func _physics_process(delta):
 		var distanct_to_waypoint = (waypoint - parent.global_position).length()
 		if distanct_to_waypoint < accuracy:
 			set_next_waypoint()
+			
+	if rotate_this_frame and target:
+		var rot = parent.global_rotation
+		var vector_to_target = target.global_position - parent.global_position
+		var angle = vector_to_target.angle()
+		var angle_delta = rotation_speed * delta
+		angle=lerp_angle(rot, angle, 1) 
+		angle = clamp(angle, rot - angle_delta, rot + angle_delta)
+		parent.global_rotation = angle
+		rotate_this_frame = false
 
 
 func set_next_waypoint():
@@ -63,4 +76,8 @@ func set_next_waypoint():
 		
 	# go to the next waypoint
 	current_waypoint_index += waypoint_direction
+	
+func rotate_toward(target: Node2D):
+	self.target = target
+	rotate_this_frame = true
 
