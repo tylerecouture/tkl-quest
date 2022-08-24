@@ -36,6 +36,13 @@ position = Vector2( 529, 402 )
 rotation = 4.71239
 
 [node name="Archer" parent="." instance=ExtResource( 4 )]
-position = Vector2( 226, 276 )
+position = Vector2( 222.029, 275.552 )
+
+[node name="Position2D" type="Position2D" parent="Archer/MovementManager" index="0"]
+position = Vector2( -142.099, 162.204 )
+
+[node name="Position2D2" type="Position2D" parent="Archer/MovementManager" index="1"]
+position = Vector2( 125.3, 171.528 )
 
 [editable path="Player"]
+[editable path="Archer"]

@@ -13,8 +13,19 @@ var waypoint_direction = 1  #  1 = forward, -1 = backward
 var parent : KinematicBody2D
 var accuracy := 5  # how close to the waypoint before its considered reached
 var has_waypoints = true
-var target : Node2D
+var target : Vector2
+var has_external_target = false
 var rotate_this_frame = false
+var facing_target = false
+
+enum States {
+	STOPPED,
+	MOVING_BETWEEN_WAYPOINTS,
+	ROTATING_TO_FACE_WAYPOINT,
+	ROTATING_TO_FACE_EXTERNAL_TARGET,
+}
+
+var state = States.ROTATING_TO_FACE_WAYPOINT
 
 
 func _ready():
@@ -27,37 +38,47 @@ func _ready():
 	# check if there are any children, if none were added, then give a helpful message
 	if waypoint_nodes.empty():
 		printerr(parent, ": No Position2D waypoints have been added to my MovementManager, so I don't know where to move to!")
-		has_waypoints = false
 	
 	# but those nodes will move with the parent, so we need to save their global_positions
 	for node in waypoint_nodes:
 		waypoints.append(node.global_position)
 
 	# final waypoint will be back to the start, this node's position
+	# Will always have at least this one waypoint (the start position of the object)
 	waypoints.append(global_position)
 
 
 func _physics_process(delta):
-	if has_waypoints:
-		var waypoint : Vector2 = waypoints[current_waypoint_index]
-		var direction := waypoint - parent.global_position
-		
-		parent.move_and_slide(direction.normalized() * speed) 
-		
-		# check if they are close enough to the waypoint to keep going
-		var distanct_to_waypoint = (waypoint - parent.global_position).length()
-		if distanct_to_waypoint < accuracy:
-			set_next_waypoint()
+	
+	var waypoint : Vector2 = waypoints[current_waypoint_index]
+	var vector_to_waypoint := waypoint - parent.global_position
+	var distance_to_waypoint := vector_to_waypoint.length()
+	var direction_to_waypoint := vector_to_waypoint.normalized()
+	
+	match state:
+		States.STOPPED:
+			pass
 			
-	if rotate_this_frame and target:
-		var rot = parent.global_rotation
-		var vector_to_target = target.global_position - parent.global_position
-		var angle = vector_to_target.angle()
-		var angle_delta = rotation_speed * delta
-		angle=lerp_angle(rot, angle, 1) 
-		angle = clamp(angle, rot - angle_delta, rot + angle_delta)
-		parent.global_rotation = angle
-		rotate_this_frame = false
+		States.MOVING_BETWEEN_WAYPOINTS:
+			parent.move_and_slide(direction_to_waypoint * speed) 
+			# after moving, check if they are close enough to switch to the next waypoint
+			distance_to_waypoint = (waypoint - parent.global_position).length()
+			if distance_to_waypoint < accuracy:
+				set_next_waypoint()
+			
+		States.ROTATING_TO_FACE_WAYPOINT:
+			# If facing waypoint, switch states:
+#			var angle_to_waypoint =  vector_to_waypoint.angle()
+#			print("parent rotation before: ", parent.global_rotation)
+#			print("Angle to waypoint: ", angle_to_waypoint)
+			target = waypoint
+			var target_angle_reached = _rotate_toward_target(delta)
+			if target_angle_reached:
+				state = States.MOVING_BETWEEN_WAYPOINTS
+				
+		States.ROTATING_TO_FACE_EXTERNAL_TARGET:
+			if target:
+				_rotate_toward_target(delta)
 
 
 func set_next_waypoint():
@@ -74,10 +95,35 @@ func set_next_waypoint():
 		# we're back at the beginning, so change direction to forward
 		waypoint_direction = 1
 		
-	# go to the next waypoint
+	# go to the next waypoint and turn toward it
 	current_waypoint_index += waypoint_direction
+	state = States.ROTATING_TO_FACE_WAYPOINT
+
+func _rotate_toward_target(delta):
+	# Returns true when target angle is reached
+	# https://www.youtube.com/watch?v=ciT_jDol9G8
+	var rot = parent.global_rotation
+	var vector_to_target = target - parent.global_position
+	var angle_to_target = vector_to_target.angle()
+	var angle_delta = rotation_speed * delta
+	var angle = lerp_angle(rot, angle_to_target, 1) 
+#	print("Delta angle: ", angle_delta)
+	angle = clamp(angle, rot - angle_delta, rot + angle_delta)
+#	print("parent rotation right before: ", parent.global_rotation)
+#	print("set to this angle: ", angle)
+	parent.global_rotation = angle
+#	print("parent rotation should equal angle: ", parent.global_rotation)
+	if abs(parent.global_rotation - angle_to_target) < angle_delta:
+#		print("target angle reached")
+		return true
+	else:
+		return false
+		
+func rotate_toward(target_node: Node2D):
+	target = target_node.global_position
+	has_external_target = true
+	state = States.ROTATING_TO_FACE_EXTERNAL_TARGET
 	
-func rotate_toward(target: Node2D):
-	self.target = target
-	rotate_this_frame = true
+func resume():
+	state = States.ROTATING_TO_FACE_WAYPOINT
 

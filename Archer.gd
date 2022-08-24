@@ -46,7 +46,7 @@ func _on_sense_body_entered(body):
 	target = body
 
 
-
 func _on_sense_body_exited(body):
 	player_in_range = false
 	target = null
+	$MovementManager.resume()
