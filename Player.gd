@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 export var speed = 120
-
 export var accuracy = deg2rad(5)
 
 var can_throw = true
@@ -17,12 +16,9 @@ enum Action {
 }
 
 
-
-
 func _process(delta):
 	
 	var direction = Vector2.ZERO
-	
 	var moving = false
 	
 	if can_throw:
@@ -58,13 +54,7 @@ func _process(delta):
 			state = Action.IDLE
 
 	move_and_slide(direction.normalized() * speed) 
-
-
-
-
-
-
-
+	
 
 func throw():
 	can_throw = false
@@ -78,7 +68,6 @@ func throw():
 	get_parent().add_child(projectile)
 	$Fire_Rate_Timer.start()
 	
-
 
 func _on_Fire_Rate_Timer_timeout():
 	can_throw = true

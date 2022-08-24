@@ -12,11 +12,6 @@
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "Walking_forward",
@@ -26,6 +21,11 @@ animations = [ {
 "loop": true,
 "name": "Dagger_throw",
 "speed": 18.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
 } ]
 
 [node name="Player" type="KinematicBody2D"]
@@ -51,5 +51,6 @@ animation = "Idle"
 
 [node name="Fire_Rate_Timer" type="Timer" parent="."]
 wait_time = 0.3
+one_shot = true
 
 [connection signal="timeout" from="Fire_Rate_Timer" to="." method="_on_Fire_Rate_Timer_timeout"]
