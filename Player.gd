@@ -7,6 +7,8 @@ var can_throw = true
 
 var Projectile = preload("res://Projectile.tscn")
 
+var x2_Fire_Rate = preload("res://x2_fire_rate.tscn")
+
 var state = Action.IDLE
 
 enum Action {

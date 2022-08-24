@@ -66,6 +66,8 @@ shape = SubResource( 3 )
 
 [node name="MovementManager" parent="." instance=ExtResource( 10 )]
 
+[node name="shoot_sensor" type="Area2D" parent="."]
+
 [connection signal="timeout" from="Fire_Rate_Timer" to="." method="_on_Fire_Rate_Timer_timeout"]
 [connection signal="body_entered" from="sense" to="." method="_on_sense_body_entered"]
 [connection signal="body_exited" from="sense" to="." method="_on_sense_body_exited"]

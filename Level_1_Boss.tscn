@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/boss-3.png.png" type="Texture" id=1]
 [ext_resource path="res://Assets/boss-4.png.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Assets/boss1-6.png.png" type="Texture" id=7]
 [ext_resource path="res://Assets/boss1-7.png.png" type="Texture" id=8]
 [ext_resource path="res://Assets/boss1-8.png.png" type="Texture" id=9]
+[ext_resource path="res://Components/MovementManager.tscn" type="PackedScene" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -33,7 +34,7 @@ radius = 26.0192
 
 [node name="Level 1 Boss" type="KinematicBody2D"]
 collision_layer = 8
-collision_mask = 6
+collision_mask = 7
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_group_": true
@@ -64,5 +65,10 @@ position = Vector2( 45, 7.5 )
 
 [node name="Orb_spawn_4" type="Position2D" parent="."]
 position = Vector2( 45, 26 )
+
+[node name="MovementManager" parent="." instance=ExtResource( 10 )]
+
+[node name="Position2D" type="Position2D" parent="MovementManager"]
+position = Vector2( 200, 0 )
 
 [connection signal="timeout" from="Fire_Rate_Timer" to="." method="_on_Fire_Rate_Timer_timeout"]

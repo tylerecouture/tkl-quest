@@ -11,7 +11,6 @@ var can_shoot = true
 var accuracy = 10
 
 var player_in_range = false
-var rotation_speed = PI
 
 func _physics_process(delta):
 	if can_shoot:
