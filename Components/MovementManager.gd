@@ -86,8 +86,8 @@ func set_next_waypoint():
 	if current_waypoint_index + 1 == waypoints.size():
 		# We're at the end
 		if looping:
-			current_waypoint_index = 0  # go back to start position
-			return
+			current_waypoint_index = -1  # go back to start position
+			# +1 will get added at the end of the method
 		else:
 			# change direction to go back through waypoints in the opposite direction
 			waypoint_direction = -1
