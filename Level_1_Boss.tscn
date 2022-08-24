@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/boss-3.png.png" type="Texture" id=1]
+[ext_resource path="res://Assets/boss-4.png.png" type="Texture" id=2]
+[ext_resource path="res://Assets/boss-1.png.png" type="Texture" id=3]
+[ext_resource path="res://Assets/boss-2.png.png" type="Texture" id=4]
+[ext_resource path="res://Level_1_Boss.gd" type="Script" id=5]
+[ext_resource path="res://Assets/boss1-5.png.png" type="Texture" id=6]
+[ext_resource path="res://Assets/boss1-6.png.png" type="Texture" id=7]
+[ext_resource path="res://Assets/boss1-7.png.png" type="Texture" id=8]
+[ext_resource path="res://Assets/boss1-8.png.png" type="Texture" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "attack_finished",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "full_attack",
+"speed": 8.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 26.0192
+
+[node name="Level 1 Boss" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 11, 2 )
+rotation = 1.5708
+scale = Vector2( 0.1, 0.1 )
+frames = SubResource( 1 )
+animation = "attack_finished"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="Fire_Rate_Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="Orb_spawn_1" type="Position2D" parent="."]
+position = Vector2( 45, -26 )
+
+[node name="Orb_spawn_2" type="Position2D" parent="."]
+position = Vector2( 45, -7.5 )
+
+[node name="Orb_spawn_3" type="Position2D" parent="."]
+position = Vector2( 45, 7.5 )
+
+[node name="Orb_spawn_4" type="Position2D" parent="."]
+position = Vector2( 45, 26 )
+
+[connection signal="timeout" from="Fire_Rate_Timer" to="." method="_on_Fire_Rate_Timer_timeout"]
