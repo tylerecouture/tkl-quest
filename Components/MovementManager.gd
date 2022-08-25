@@ -12,11 +12,11 @@ var current_waypoint_index := 0
 var waypoint_direction = 1  #  1 = forward, -1 = backward
 var parent : KinematicBody2D
 var accuracy := 5  # how close to the waypoint before its considered reached
-var has_waypoints = true
+var has_waypoints := true
 var target : Vector2
-var has_external_target = false
-var rotate_this_frame = false
-var facing_target = false
+var has_external_target := false
+var rotate_this_frame := false
+var facing_target := false
 
 enum States {
 	STOPPED,
@@ -119,7 +119,7 @@ func _rotate_toward_target(delta):
 	else:
 		return false
 		
-func rotate_toward(target_node: Node2D):
+func rotate_toward(target_node : Node2D):
 	target = target_node.global_position
 	has_external_target = true
 	state = States.ROTATING_TO_FACE_EXTERNAL_TARGET
