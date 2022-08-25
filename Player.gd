@@ -56,7 +56,12 @@ func _process(delta):
 			state = Action.IDLE
 
 	move_and_slide(direction.normalized() * speed) 
-	
+
+	var x2_fire_rate = x2_Fire_Rate.instance()
+	get_parent().add_child(x2_fire_rate)
+
+	if activate_x2_fire_rate:
+		pass
 
 func throw():
 	can_throw = false
