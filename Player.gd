@@ -5,6 +5,8 @@ export var accuracy = deg2rad(5)
 
 var powerup : String
 
+var double_fire_rate = false
+
 var can_throw = true
 
 var Projectile = preload("res://Projectile.tscn")
@@ -19,7 +21,6 @@ enum Action {
 	IDLE,
 	WALK_FORWARD,
 	THROW_DAGGER,
-	DOUBLE_FIRE_RATE,
 }
 
 
@@ -65,17 +66,19 @@ func _process(delta):
 
 
 func throw():
-	if state != Action.DOUBLE_FIRE_RATE:
-		can_throw = false
-		$Sprite.play("Dagger_throw")
-		state = Action.THROW_DAGGER
-		yield($Sprite,"animation_finished")
-		state = Action.IDLE
-		var projectile = Projectile.instance()
-		projectile.position = $Hand.global_position
-		projectile.rotation = rotation + rand_range(-accuracy, accuracy)
-		get_parent().add_child(projectile)
-		$Fire_Rate_Timer.start()
+	can_throw = false
+	if double_fire_rate:
+		$Sprite.flip_h = not $Sprite.flip_h
+		$Hand.position.y = $Hand.position.y * -1
+	$Sprite.play("Dagger_throw")
+	state = Action.THROW_DAGGER
+	yield($Sprite,"animation_finished")
+	state = Action.IDLE
+	var projectile = Projectile.instance()
+	projectile.position = $Hand.global_position
+	projectile.rotation = rotation + rand_range(-accuracy, accuracy)
+	get_parent().add_child(projectile)
+	$Fire_Rate_Timer.start()
 
 
 func _on_Fire_Rate_Timer_timeout():
@@ -83,20 +86,24 @@ func _on_Fire_Rate_Timer_timeout():
 
 
 func _on_Powerup_Sensor_area_entered(area):
+	
 	powerup = area.name
 	if powerup == "double_fire_rate":
+		double_fire_rate = true
 		$Fire_Rate_Timer.wait_time = .15
-		can_throw = false
-		$Sprite.flip_h
-		$Sprite.play("Dagger_throw")
-		state = Action.THROW_DAGGER
-		yield($Sprite,"animation_finished")
-		state = Action.IDLE
-		var projectile = Projectile.instance()
-		projectile.position = $Hand.global_position
-		projectile.rotation = rotation + rand_range(-accuracy, accuracy)
-		get_parent().add_child(projectile)
-		$Fire_Rate_Timer.start()
+		
+		
+#		can_throw = false
+#		$Sprite.flip_h
+#		$Sprite.play("Dagger_throw")
+#		state = Action.THROW_DAGGER
+#		yield($Sprite,"animation_finished")
+#		state = Action.IDLE
+#		var projectile = Projectile.instance()
+#		projectile.position = $Hand.global_position
+#		projectile.rotation = rotation + rand_range(-accuracy, accuracy)
+#		get_parent().add_child(projectile)
+#		$Fire_Rate_Timer.start()
 
 
 

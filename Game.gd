@@ -5,4 +5,4 @@ var double_fire_rate = Double_Fire_Rate.instance()
 
 func _ready():
 	add_child(double_fire_rate)
-	double_fire_rate
+	
