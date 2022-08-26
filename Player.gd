@@ -3,11 +3,15 @@ extends KinematicBody2D
 export var speed = 120
 export var accuracy = deg2rad(5)
 
+var powerup : String
+
 var can_throw = true
 
 var Projectile = preload("res://Projectile.tscn")
 
-var x2_Fire_Rate = preload("res://x2_fire_rate.tscn")
+
+
+
 
 var state = Action.IDLE
 
@@ -15,6 +19,7 @@ enum Action {
 	IDLE,
 	WALK_FORWARD,
 	THROW_DAGGER,
+	DOUBLE_FIRE_RATE,
 }
 
 
@@ -57,24 +62,42 @@ func _process(delta):
 
 	move_and_slide(direction.normalized() * speed) 
 
-	var x2_fire_rate = x2_Fire_Rate.instance()
-	get_parent().add_child(x2_fire_rate)
 
-	if activate_x2_fire_rate:
-		pass
 
 func throw():
-	can_throw = false
-	$Sprite.play("Dagger_throw")
-	state = Action.THROW_DAGGER
-	yield($Sprite,"animation_finished")
-	state = Action.IDLE
-	var projectile = Projectile.instance()
-	projectile.position = $Hand.global_position
-	projectile.rotation = rotation + rand_range(-accuracy, accuracy)
-	get_parent().add_child(projectile)
-	$Fire_Rate_Timer.start()
-	
+	if state != Action.DOUBLE_FIRE_RATE:
+		can_throw = false
+		$Sprite.play("Dagger_throw")
+		state = Action.THROW_DAGGER
+		yield($Sprite,"animation_finished")
+		state = Action.IDLE
+		var projectile = Projectile.instance()
+		projectile.position = $Hand.global_position
+		projectile.rotation = rotation + rand_range(-accuracy, accuracy)
+		get_parent().add_child(projectile)
+		$Fire_Rate_Timer.start()
+
 
 func _on_Fire_Rate_Timer_timeout():
 	can_throw = true
+
+
+func _on_Powerup_Sensor_area_entered(area):
+	powerup = area.name
+	if powerup == "double_fire_rate":
+		$Fire_Rate_Timer.wait_time = .15
+		can_throw = false
+		$Sprite.flip_h
+		$Sprite.play("Dagger_throw")
+		state = Action.THROW_DAGGER
+		yield($Sprite,"animation_finished")
+		state = Action.IDLE
+		var projectile = Projectile.instance()
+		projectile.position = $Hand.global_position
+		projectile.rotation = rotation + rand_range(-accuracy, accuracy)
+		get_parent().add_child(projectile)
+		$Fire_Rate_Timer.start()
+
+
+
+

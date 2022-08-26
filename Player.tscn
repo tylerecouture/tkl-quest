@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/New Piskel-2.png.png" type="Texture" id=1]
 [ext_resource path="res://Assets/New Piskel-3.png.png" type="Texture" id=2]
@@ -12,6 +12,11 @@
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "Dagger_throw",
+"speed": 18.0
+}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "Idle",
@@ -21,12 +26,10 @@ animations = [ {
 "loop": true,
 "name": "Walking_forward",
 "speed": 8.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "Dagger_throw",
-"speed": 18.0
 } ]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 19.2354
 
 [node name="Player" type="KinematicBody2D"]
 rotation = 3.14159
@@ -53,4 +56,12 @@ animation = "Idle"
 wait_time = 0.3
 one_shot = true
 
+[node name="Powerup_Sensor" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Powerup_Sensor"]
+shape = SubResource( 4 )
+
 [connection signal="timeout" from="Fire_Rate_Timer" to="." method="_on_Fire_Rate_Timer_timeout"]
+[connection signal="area_entered" from="Powerup_Sensor" to="." method="_on_Powerup_Sensor_area_entered"]
