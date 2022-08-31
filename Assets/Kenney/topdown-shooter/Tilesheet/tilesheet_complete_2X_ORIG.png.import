@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tilesheet_complete_2X.png-2e82461840d45c521d09865db7a03cde.stex"
+path="res://.import/tilesheet_complete_2X_ORIG.png-4acf5e588c16a03c8d1a1bf8381879fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Kenney/topdown-shooter/Tilesheet/tilesheet_complete_2X.png"
-dest_files=[ "res://.import/tilesheet_complete_2X.png-2e82461840d45c521d09865db7a03cde.stex" ]
+source_file="res://Assets/Kenney/topdown-shooter/Tilesheet/tilesheet_complete_2X_ORIG.png"
+dest_files=[ "res://.import/tilesheet_complete_2X_ORIG.png-4acf5e588c16a03c8d1a1bf8381879fd.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

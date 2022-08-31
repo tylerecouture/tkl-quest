@@ -94,7 +94,7 @@ func generate_map():
 			self.set_cell(next_cell.x, next_cell.y, 0)
 			current_cell = next_cell
 			steps_taken += 1
-			print(steps_taken, ": ", current_cell)
+#			print(steps_taken, ": ", current_cell)
 		
 		if steps_taken == steps:
 			keep_building = false
