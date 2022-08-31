@@ -10,6 +10,8 @@ var Boss_projectile = preload("res://Level_1_Boss_Projectile.tscn")
 
 var state = Action.IDLE
 
+var is_enemy = true
+
 enum Action {
 	IDLE,
 	CHARGING_ATTACK,
@@ -17,6 +19,12 @@ enum Action {
 }
 
 func _physics_process(delta):
+	
+	
+	if $HealthManager.HP <= 0:
+		queue_free()
+	
+	
 	if is_attacking:
 		if can_attack:
 			can_attack = false

@@ -2,8 +2,8 @@ extends Sprite
 
 
 func _ready():
-	$Vanish_Timer.start()
-
+#	$Vanish_Timer.start()
+	pass
 
 func _on_double_fire_rate_body_entered(body):
 	queue_free()

@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+export var HP = 10
 var Arrow = preload("res://Archer_Arrow.tscn")
 var Double_Fire_Rate = preload("res://x2_fire_rate.tscn")
 var double_fire_rate = Double_Fire_Rate.instance()
@@ -8,6 +9,7 @@ var target = null
 var can_shoot = true
 var accuracy = 10
 var player_in_range = false
+var is_enemy = true
 
 enum States {
 	ROAMING
@@ -20,8 +22,8 @@ var state = States.ROAMING
 signal shooting_completed
 
 func _physics_process(delta):
-	
-	if $HealthManager.HP <= 0:
+
+	if HP <= 0:
 		if rand_range(0,100) <= 50:
 			get_parent().add_child(double_fire_rate)
 			double_fire_rate.global_position = global_position
@@ -45,15 +47,14 @@ func shoot():
 	yield($Sprite,"animation_finished")
 	var arrow = Arrow.instance()
 	arrow.rotation = rotation 
-	arrow.position = $Arrow_spawn.global_position
+	arrow.position = $Arrow_Spawn.global_position
 	get_parent().add_child(arrow)
-	$Fire_Rate_Timer.start()
+	$Attack_Speed_Timer.start()
 	$Sprite.play("Idle")
 	can_rotate = true
 	emit_signal("shooting_completed")
 
-func _on_Fire_Rate_Timer_timeout():
-	can_shoot = true
+
 
 func _on_sense_body_entered(body):
 	target = body
@@ -66,10 +67,17 @@ func _on_sense_body_exited(body):
 
 func _on_line_of_fire_body_entered(body):
 	player_in_range = true
-	
+
 func _on_line_of_fire_body_exited(body):
 	player_in_range = false
 
 func _on_Archer_shooting_completed():
 	if state == States.ROAMING:
 		$MovementManager.resume()
+
+func _on_Area2D_body_entered(body):
+	HP = HP - body.projectile_damage
+	print(HP)
+
+func _on_Attack_Speed_Timer_timeout():
+	can_shoot = true

@@ -10,6 +10,7 @@ extents = Vector2( 40, 70 )
 extents = Vector2( 15, 15 )
 
 [node name="Projectile" type="KinematicBody2D"]
+scale = Vector2( 1.00186, 1 )
 collision_layer = 4
 collision_mask = 9
 script = ExtResource( 2 )

@@ -16,15 +16,15 @@ animations = [ {
 "name": "Dagger_throw",
 "speed": 18.0
 }, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "Walking_forward",
 "speed": 8.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=4]
@@ -32,6 +32,7 @@ radius = 19.2354
 
 [node name="Player" type="KinematicBody2D"]
 rotation = 3.14159
+collision_layer = 2
 collision_mask = 9
 script = ExtResource( 7 )
 accuracy = 0.087
@@ -62,6 +63,9 @@ collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Powerup_Sensor"]
 shape = SubResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
 
 [connection signal="timeout" from="Fire_Rate_Timer" to="." method="_on_Fire_Rate_Timer_timeout"]
 [connection signal="area_entered" from="Powerup_Sensor" to="." method="_on_Powerup_Sensor_area_entered"]
