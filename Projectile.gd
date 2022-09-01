@@ -14,7 +14,7 @@ func _physics_process(delta):
 
 func _on_Area2D_body_entered(body):
 	is_moving = false
-	if body.is_enemy:
+	if "HP" in body:
 		body.HP = body.HP - projectile_damage
 		queue_free()
 	$Area2D/Timer.start()

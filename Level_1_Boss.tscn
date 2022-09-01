@@ -13,14 +13,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "attack_finished",
-"speed": 5.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "attack_finished",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
@@ -45,8 +45,8 @@ position = Vector2( 11, 2 )
 rotation = 1.5708
 scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 1 )
-animation = "attack_finished"
-playing = true
+animation = "full_attack"
+frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

@@ -54,8 +54,6 @@ func shoot():
 	can_rotate = true
 	emit_signal("shooting_completed")
 
-
-
 func _on_sense_body_entered(body):
 	target = body
 	state = States.LOCATING_PLAYER
