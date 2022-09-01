@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/impactMetal_light_000.ogg-f5c945dfbef57f7ffe47974b0e390fc4.oggstr"
+
+[deps]
+
+source_file="res://Assets/Kenney/kenney_impactsounds/Audio/impactMetal_light_000.ogg"
+dest_files=[ "res://.import/impactMetal_light_000.ogg-f5c945dfbef57f7ffe47974b0e390fc4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

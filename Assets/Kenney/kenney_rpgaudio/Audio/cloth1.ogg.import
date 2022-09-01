@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/cloth1.ogg-b7ca4372c700871f364e944168dc596f.oggstr"
+
+[deps]
+
+source_file="res://Assets/Kenney/kenney_rpgaudio/Audio/cloth1.ogg"
+dest_files=[ "res://.import/cloth1.ogg-b7ca4372c700871f364e944168dc596f.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
