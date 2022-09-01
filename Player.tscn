@@ -16,15 +16,15 @@ animations = [ {
 "name": "Dagger_throw",
 "speed": 18.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "Walking_forward",
-"speed": 8.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "Walking_forward",
+"speed": 8.0
 } ]
 
 [sub_resource type="CircleShape2D" id=4]

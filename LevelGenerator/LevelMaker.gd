@@ -7,6 +7,7 @@ export var map_width := 50 setget set_width
 export var map_height := 40 setget set_height
 #export var density := 0.2
 export var steps := 2000 setget set_steps
+export var rooms := 3 setget set_rooms
 
 export var regenerate := false setget set_regenerate
 
@@ -30,6 +31,13 @@ enum direction {
 	NORTHWEST,
 	NORTH,
 }
+
+enum State {
+	HALL,
+	ROOM,
+	RANDOM_WALK,
+}
+var state = State.ROOM
 
 var vectors := {
 	direction.NORTH : Vector2(0, -1),
@@ -70,6 +78,10 @@ func set_steps(var new_val):
 	generate_map()	
 		
 func set_regenerate(var new_val):
+	generate_map()
+	
+func set_rooms(var new_val):
+	rooms = new_val
 	generate_map()
 
 
