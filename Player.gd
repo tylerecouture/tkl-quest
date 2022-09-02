@@ -93,17 +93,7 @@ func _on_Powerup_Sensor_area_entered(area):
 		$Fire_Rate_Timer.wait_time = .15
 		
 		
-#		can_throw = false
-#		$Sprite.flip_h
-#		$Sprite.play("Dagger_throw")
-#		state = Action.THROW_DAGGER
-#		yield($Sprite,"animation_finished")
-#		state = Action.IDLE
-#		var projectile = Projectile.instance()
-#		projectile.position = $Hand.global_position
-#		projectile.rotation = rotation + rand_range(-accuracy, accuracy)
-#		get_parent().add_child(projectile)
-#		$Fire_Rate_Timer.start()
+
 
 
 

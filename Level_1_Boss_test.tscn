@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/boss1-5.png.png" type="Texture" id=1]
 [ext_resource path="res://Assets/boss-3.png.png" type="Texture" id=2]
@@ -9,22 +9,24 @@
 [ext_resource path="res://Assets/boss1-6.png.png" type="Texture" id=7]
 [ext_resource path="res://Assets/boss1-7.png.png" type="Texture" id=8]
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Level_1_Boss_test.gd" type="Script" id=10]
+[ext_resource path="res://Components/MovementManager.tscn" type="PackedScene" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "attack_finished",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "full_attack",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Idle",
 "speed": 5.0
 } ]
 
@@ -32,6 +34,8 @@ animations = [ {
 radius = 24.0832
 
 [node name="Level_1_Boss" instance=ExtResource( 9 )]
+position = Vector2( 1145, 694 )
+script = ExtResource( 10 )
 
 [node name="Sprite" parent="." index="0"]
 position = Vector2( 11, 2 )
@@ -62,3 +66,7 @@ scale = Vector2( 0.1, 0.1 )
 position = Vector2( 45, 26 )
 rotation = 1.5708
 scale = Vector2( 0.1, 0.1 )
+
+[node name="MovementManager" parent="." index="7" instance=ExtResource( 11 )]
+
+[connection signal="timeout" from="Attack_Speed_Timer" to="." method="_on_Attack_Speed_Timer_timeout"]

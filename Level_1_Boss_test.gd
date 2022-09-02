@@ -26,7 +26,7 @@ func _physics_process(delta):
 			$Sprite.play("full_attack")
 			state = Action.ATTACK
 			yield($Sprite,"animation_finished")
-			
+			$Sprite.play("attack_finished")
 			var direction_1 = Vector2(cos(rotation + deg2rad(-15)),sin(rotation))
 			var direction_2 = Vector2(cos(rotation + deg2rad(-5)),sin(rotation))
 			var direction_3 = Vector2(cos(rotation + deg2rad(5)),sin(rotation))
@@ -47,17 +47,16 @@ func _physics_process(delta):
 			boss_projectile_3.apply_central_impulse(direction_3 * Boss_Projectile_Speed)
 			boss_projectile_4.apply_central_impulse(direction_4 * Boss_Projectile_Speed)
 			
-			boss_projectile_1.position = $Orb_spawn_1.global_position
-			boss_projectile_2.position = $Orb_spawn_2.global_position
-			boss_projectile_3.position = $Orb_spawn_3.global_position
-			boss_projectile_4.position = $Orb_spawn_4.global_position
+			boss_projectile_1.position = $Orb_Spawn_1.global_position
+			boss_projectile_2.position = $Orb_Spawn_2.global_position
+			boss_projectile_3.position = $Orb_Spawn_3.global_position
+			boss_projectile_4.position = $Orb_Spawn_4.global_position
 			
 			boss_projectile_1.rotation = rotation
 			boss_projectile_2.rotation = rotation
 			boss_projectile_3.rotation = rotation
 			boss_projectile_4.rotation = rotation
 			
-			$Sprite.play("attack_finished")
 			$Attack_Speed_Timer.start()
 
 
