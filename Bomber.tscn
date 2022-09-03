@@ -11,34 +11,37 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "explode",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ) ],
 "loop": true,
 "name": "running",
 "speed": 12.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "explode",
+"speed": 10.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 21.0238
+radius = 20.0308
 
-[node name="Enemy" type="KinematicBody2D"]
+[node name="Bomber" type="KinematicBody2D"]
+scale = Vector2( 0.9, 0.9 )
 collision_layer = 8
 collision_mask = 15
 script = ExtResource( 8 )
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_horizontal_guides_": [  ]
 }
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="Sprite" type="AnimatedSprite" parent="." groups=["Enemy"]]
 position = Vector2( 15, 4.9 )
 rotation = 1.5708
 scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 1 )
 animation = "running"
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

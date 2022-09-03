@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var speed = 120
+export var speed : int
 export var accuracy = deg2rad(5)
 
 var powerup : String
