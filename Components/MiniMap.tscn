@@ -7,6 +7,8 @@
 [ext_resource path="res://Components/MiniMap.gd" type="Script" id=5]
 
 [sub_resource type="ImageTexture" id=1]
+flags = 3
+flags = 3
 
 [node name="MiniMap" type="MarginContainer"]
 margin_right = 215.0
@@ -39,24 +41,25 @@ custom_constants/margin_top = 6
 custom_constants/margin_left = 6
 custom_constants/margin_bottom = 10
 
-[node name="Grid" type="TextureRect" parent="MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 margin_left = 6.0
 margin_top = 6.0
 margin_right = 199.0
 margin_bottom = 126.0
 texture = SubResource( 1 )
+stretch_mode = 6
 
-[node name="PlayerMarker" type="Sprite" parent="MarginContainer/Grid"]
-position = Vector2( 97, 57 )
+[node name="PlayerMarker" type="Sprite" parent="MarginContainer"]
+position = Vector2( 106, 63 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 
-[node name="MobMarker" type="Sprite" parent="MarginContainer/Grid"]
-position = Vector2( 65.4762, 20.2008 )
-scale = Vector2( 0.3, 0.3 )
-texture = ExtResource( 2 )
-
-[node name="AlertMarker" type="Sprite" parent="MarginContainer/Grid"]
-position = Vector2( 63, 35 )
+[node name="AlertMarker" type="Sprite" parent="MarginContainer"]
+position = Vector2( 69, 41 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 4 )
+
+[node name="MobMarker" type="Sprite" parent="MarginContainer"]
+position = Vector2( 71.4762, 26.2008 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )

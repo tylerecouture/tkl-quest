@@ -1,35 +1,39 @@
 extends MarginContainer
 
-export (NodePath) var player
-export (NodePath) var tile_map
+export (NodePath) var player_path
+export (NodePath) var tilemap_path
 export var zoom := 1.5
 
-onready var tilemap: TileMap = get_node(tile_map)
+onready var tilemap: TileMap = get_node(tilemap_path)
+onready var player: KinematicBody2D = get_node(player_path)
 var tilemap_bounds: Rect2
 
-onready var grid := $MarginContainer/Grid
-onready var player_marker := $MarginContainer/Grid/PlayerMarker
-onready var mob_marker := $MarginContainer/Grid/MobMarker
-onready var alert_marker := $MarginContainer/Grid/AlertMarker
+onready var rect := $MarginContainer/TextureRect
+onready var player_marker := $MarginContainer/PlayerMarker
+#onready var mob_marker := $MarginContainer/TextureRect/MobMarker
+#onready var alert_marker := $MarginContainer/TextureRect/AlertMarker
 
-onready var texture = $MarginContainer/Grid.texture
+onready var texture = $MarginContainer/TextureRect.texture
 
-onready var icons := {"mob": mob_marker, "alert": alert_marker}
+#onready var icons := {"mob": mob_marker, "alert": alert_marker}
 
-var grid_scale
 var markers := {}
+var map_texture_size : Vector2 # the original texture size so we don't "print" beyond it
+var map_center : Vector2
+var map_offset : Vector2
 
 func _ready():
-	player_marker.position = grid.rect_size / 2
-	grid_scale = grid.rect_size / (get_viewport_rect().size * zoom )
+	map_texture_size = rect.rect_size
+	map_center = map_texture_size / 2
+	player_marker.position = map_center
+	
 	
 	# initialize an image for this texture so we can update later
 	# https://docs.godotengine.org/en/stable/classes/class_imagetexture.html#class-imagetexture-method-set-data
-	
 	var image = Image.new()
-	image.create(200, 200, true, Image.FORMAT_RGBA8)
+	image.create(map_texture_size.x, map_texture_size.y, true, Image.FORMAT_RGBA8)
 	image.fill(Color.red)
-	texture.create_from_image(image)
+	texture.create_from_image(image) 
 	
 	# find the bounds of the tilemap
 	if tilemap:
@@ -42,7 +46,13 @@ func _ready():
 	
 func _process(delta):
 	if player:
-		player_marker.rotation = get_node(player).rotation + PI  # +180 degrees
+		player_marker.rotation = player.rotation + PI  # +180 degrees
+		# convert the player's position into a tilemap coord
+		# https://docs.godotengine.org/en/stable/classes/class_tilemap.html#class-tilemap-method-world-to-map
+		var local_pos = tilemap.to_local(player.global_position)
+		var player_coords = tilemap.world_to_map(local_pos)
+		
+		map_offset = player_coords - map_center
 	
 	if tilemap:
 		
