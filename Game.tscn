@@ -25,7 +25,7 @@ position = Vector2( 794.461, 727.474 )
 rotation = 4.71239
 
 [node name="Sprite" parent="Level_1_Boss" index="0"]
-frame = 4
+frame = 2
 
 [node name="Position2D" type="Position2D" parent="Level_1_Boss/MovementManager" index="0"]
 position = Vector2( 181.984, 26.5144 )
@@ -72,6 +72,7 @@ margin_bottom = 124.0
 
 [node name="Summoner" parent="." instance=ExtResource( 7 )]
 position = Vector2( 759.833, 461.208 )
+player_path = NodePath("../Player")
 
 [node name="Position2D" type="Position2D" parent="Summoner/MovementManager" index="0"]
 position = Vector2( 51.3134, -94.7821 )
