@@ -33,9 +33,6 @@ extents = Vector2( 158, 10 )
 collision_layer = 8
 collision_mask = 15
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 15, 4.9 )
@@ -68,6 +65,9 @@ position = Vector2( 148, 0 )
 shape = SubResource( 4 )
 
 [node name="MovementManager" parent="." instance=ExtResource( 6 )]
+
+[node name="Bomber_Spawn" type="Position2D" parent="."]
+position = Vector2( 85, 18 )
 
 [connection signal="shooting_completed" from="." to="." method="_on_Summoner_shooting_completed"]
 [connection signal="timeout" from="Attack_Speed_Timer" to="." method="_on_Attack_Speed_Timer_timeout"]

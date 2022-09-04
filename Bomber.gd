@@ -1,17 +1,14 @@
 extends KinematicBody2D
 
 
-
-
 export var speed : int
 export var HP = 5
 export(NodePath) var player_path
-onready var player = get_node(player_path)
+onready var player = null
 
 
 
 func _ready():
-	player_path = ("res://Player.tscn")
 	$Sprite.play("running")
 
 
@@ -27,9 +24,9 @@ func _physics_process(delta):
 			pass
 		queue_free()
 	
-
-	look_at(player.position)
-	move_and_slide(Vector2((speed * 60),0).rotated(rotation))
+	if player_path != null:
+		look_at(player.global_position)
+		move_and_slide(Vector2((speed * 60),0).rotated(rotation))
 
 
 

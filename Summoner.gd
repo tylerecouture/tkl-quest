@@ -9,6 +9,8 @@ var is_enemy = true
 var can_rotate = true
 var player_in_range = false
 
+export(NodePath) var player_path
+onready var player = get_node(player_path)
 
 enum States {
 	ROAMING
@@ -47,6 +49,7 @@ func _physics_process(delta):
 
 
 func shoot():
+	print(player)
 	can_attack = false
 	$Sprite.play("Summon")
 	yield($Sprite,"animation_finished")
@@ -54,8 +57,9 @@ func shoot():
 	$Attack_Speed_Timer.start()
 	$Sprite.play("Idle")
 	emit_signal("attack_completed")
-	add_child(bomber)
-
+	get_parent().add_child(bomber)
+	bomber.global_position = $Bomber_Spawn.global_position
+	bomber.player = player
 func _on_sense_body_entered(body):
 	target = body
 	state = States.LOCATING_PLAYER
