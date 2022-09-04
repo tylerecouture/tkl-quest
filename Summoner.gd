@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
 export var HP = 10
-#var bomber = preload()
+var Bomber = preload("res://Bomber.tscn")
+var bomber = Bomber.instance()
 var target = null
 var can_attack = true
 var is_enemy = true
@@ -53,7 +54,7 @@ func shoot():
 	$Attack_Speed_Timer.start()
 	$Sprite.play("Idle")
 	emit_signal("attack_completed")
-	
+	add_child(bomber)
 
 func _on_sense_body_entered(body):
 	target = body
