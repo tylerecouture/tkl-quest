@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Assets/Kenney/uipack-rpg/PNG/buttonSquare_blue.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Kenney/uipack-rpg/PNG/cursorSword_bronze.png" type="Texture" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://Components/MiniMap.gd" type="Script" id=5]
 
 [sub_resource type="ImageTexture" id=1]
+flags = 3
+flags = 3
+
+[sub_resource type="ImageTexture" id=2]
 flags = 3
 flags = 3
 
@@ -20,8 +24,11 @@ custom_constants/margin_top = 5
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 5
 script = ExtResource( 5 )
+fog_color = Color( 0.121569, 0.121569, 0.121569, 1 )
+map_color = Color( 0.368627, 0.329412, 0.223529, 1 )
 
 [node name="Frame" type="NinePatchRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.494118 )
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 195.0
@@ -73,3 +80,11 @@ visible = false
 position = Vector2( 71.4762, 26.2008 )
 scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 2 )
+
+[node name="FogTextureRect" type="TextureRect" parent="Frame/MarginContainer"]
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 172.0
+margin_bottom = 89.0
+texture = SubResource( 2 )
+expand = true
