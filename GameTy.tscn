@@ -14,13 +14,16 @@ visible = false
 visible = false
 bake_navigation = true
 
+[node name="Sprite" parent="Level_1_Boss" index="0"]
+frame = 0
+
 [node name="MiniMap" parent="CanvasLayer" index="0"]
 player_path = NodePath("../../Player")
 tilemap_path = NodePath("../../TileMap")
 
-[node name="TextureRect" parent="CanvasLayer/MiniMap/MarginContainer" index="0"]
-margin_right = 202.0
-margin_bottom = 124.0
+[node name="TextureRect" parent="CanvasLayer/MiniMap/Frame/MarginContainer" index="0"]
+margin_right = 190.0
+margin_bottom = 108.0
 
 [editable path="Navigation2D"]
 [editable path="Player"]
